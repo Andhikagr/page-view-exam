@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:onboarding_exam/onboarding_one/city_four.dart';
 import 'package:onboarding_exam/onboarding_one/city_one.dart';
 import 'package:onboarding_exam/onboarding_one/city_three.dart';
 import 'package:onboarding_exam/onboarding_one/city_two.dart';
@@ -17,7 +18,7 @@ class _OnboardingState extends State<Onboarding> {
     return Scaffold(
       body: PageView(
         controller: controller,
-        children: [CityOne(), CityTwo(), CityThree()],
+        children: [CityOne(), CityTwo(), CityThree(), CityFour()],
       ),
     );
   }
