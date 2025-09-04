@@ -9,6 +9,7 @@ class OnboardingChat extends StatefulWidget {
 
 class _OnboardingChatState extends State<OnboardingChat> {
   int selectedIndex = 0;
+  late PageController _pageController;
 
   final List<Map<String, dynamic>> dataFill = [
     {
@@ -32,6 +33,18 @@ class _OnboardingChatState extends State<OnboardingChat> {
   ];
 
   @override
+  void initState() {
+    super.initState();
+    _pageController = PageController();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _pageController.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
@@ -41,6 +54,7 @@ class _OnboardingChatState extends State<OnboardingChat> {
             SizedBox(
               height: 500,
               child: PageView.builder(
+                controller: _pageController,
                 onPageChanged: (index) {
                   setState(() {
                     selectedIndex = index;
@@ -67,14 +81,27 @@ class _OnboardingChatState extends State<OnboardingChat> {
               ),
             ),
             Spacer(flex: 5),
-            TextButton.icon(
-              style: TextButton.styleFrom(
-                foregroundColor: Colors.grey.shade800,
-              ),
-              icon: Icon(Icons.arrow_right_alt_outlined),
-              onPressed: () {},
-              label: Text("Skip"),
-            ),
+            selectedIndex == dataFill.length - 1
+                ? TextButton.icon(
+                    style: TextButton.styleFrom(
+                      foregroundColor: Colors.grey.shade800,
+                    ),
+                    icon: Icon(Icons.arrow_right_alt_outlined),
+                    onPressed: () {},
+                    label: Text("Get Started"),
+                  )
+                : TextButton.icon(
+                    style: TextButton.styleFrom(
+                      foregroundColor: Colors.grey.shade800,
+                    ),
+                    icon: Icon(Icons.arrow_right_alt_outlined),
+                    onPressed: () {
+                      setState(() {
+                        _pageController.jumpToPage(dataFill.length - 1);
+                      });
+                    },
+                    label: Text("Skip"),
+                  ),
             Spacer(),
           ],
         ),
